@@ -4,21 +4,24 @@ import { Layout } from './../view';
 
 @customElement('carousel-comp')
 export class CarouselComp extends Layout {
-  @state()
-  private actual = 0;
+  @state() private actual = 0;
+  @state() private hideBackButton = false;
+  @state() private hideForwardButton = false;
 
   render() {
     return html`
       <div class="container">
         <div class="back-button button">
           <slot name="back">
-            <div id="back-icon" class="icon" @click=${this.clickBack}>&#60;</div>
+            <div id="back-icon" class="icon" ?hidden=${this.hideBackButton} @click=${this.clickBack}>&#60;</div>
           </slot>
         </div>
         <slot name="content" @slotchange=${this.handleSlotchange}> </slot>
         <div class="forward-button button">
           <slot name="forward">
-            <div id="forward-icon" class="icon" @click=${this.clickForward}>&#62;</div>
+            <div id="forward-icon" class="icon" ?hidden=${this.hideForwardButton} @click=${this.clickForward}>
+              &#62;
+            </div>
           </slot>
         </div>
       </div>
@@ -43,31 +46,27 @@ export class CarouselComp extends Layout {
       }
     }
 
-    const backIcon = this.shadowRoot!.querySelector('#back-icon');
     if (this.actual == 0) {
-      backIcon?.setAttribute('hidden', 'true');
+      this.hideBackButton = true;
     } else {
-      backIcon?.removeAttribute('hidden');
+      this.hideBackButton = false;
     }
 
-    const forwardButton = this.shadowRoot!.querySelector('#forward-icon');
     if (this.actual == slots.length - 1) {
-      forwardButton?.setAttribute('hidden', 'true');
+      this.hideForwardButton = true;
     } else {
-      forwardButton?.removeAttribute('hidden');
+      this.hideForwardButton = false;
     }
   }
 
   clickBack() {
     --this.actual;
     this.refreshContent();
-    console.log(this.actual);
   }
 
   clickForward() {
     ++this.actual;
     this.refreshContent();
-    console.log(this.actual);
   }
 
   static styles = css`

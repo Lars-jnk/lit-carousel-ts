@@ -12,17 +12,19 @@ export class CarouselComp extends Layout {
     return html`
       <div class="container">
         <div class="back-button button">
-          <slot name="back">
-            <div id="back-icon" class="icon" ?hidden=${this.hideBackButton} @click=${this.clickBack}>&#60;</div>
-          </slot>
+          <div class="icon" @click=${this.clickBack} ?hidden=${this.hideBackButton}>
+            <slot name="back">
+              <div class="icon-default">&#60;</div>
+            </slot>
+          </div>
         </div>
         <slot name="content" @slotchange=${this.handleSlotchange}> </slot>
         <div class="forward-button button">
-          <slot name="forward">
-            <div id="forward-icon" class="icon" ?hidden=${this.hideForwardButton} @click=${this.clickForward}>
-              &#62;
-            </div>
-          </slot>
+          <div class="icon" @click=${this.clickForward} ?hidden=${this.hideForwardButton}>
+            <slot name="forward">
+              <div class="icon-default">&#62;</div>
+            </slot>
+          </div>
         </div>
       </div>
     `;
@@ -94,9 +96,11 @@ export class CarouselComp extends Layout {
     }
     .icon {
       width: max-content;
+      cursor: pointer;
+    }
+    .icon-default {
       color: white;
       font-size: 48px;
-      cursor: pointer;
     }
   `;
 }

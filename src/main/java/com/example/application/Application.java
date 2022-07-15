@@ -15,8 +15,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  *
  */
 @SpringBootApplication
-@Theme(value = "lit-carousel-ts")
-@PWA(name = "lit-carousel-ts", shortName = "lit-carousel-ts", offlineResources = {})
+@Theme(value = "hilla-grocery-app")
+@PWA(name = "hilla-grocery-app", shortName = "hilla-grocery-app", offlineResources = {})
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {

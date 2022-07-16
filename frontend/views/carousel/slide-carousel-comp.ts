@@ -6,7 +6,6 @@ import { Layout } from './../view';
 export class SlideCarouselComp extends Layout {
   @state() private actual = 0;
   @state() private width = 0;
-  @state() private slotCount = 0;
   @state() private contentWidth = '';
   @state() private hideBackButton = false;
   @state() private hideForwardButton = false;
@@ -50,33 +49,25 @@ export class SlideCarouselComp extends Layout {
   }
 
   private handleResize = () => {
-    console.log('handleResize');
-    const div = this.shadowRoot?.querySelector('.container');
-    this.width = div!.clientWidth;
-    console.log(this.width);
+    this.fetchWidth();
+    this.refreshContent();
   };
 
   handleSlotchange(e: Event) {
+    this.fetchWidth();
     this.refreshContent();
   }
 
-  refreshContent() {
+  fetchWidth() {
     const div = this.shadowRoot?.querySelector('.container');
     this.width = div!.clientWidth;
-    console.log(this.width);
+  }
 
+  refreshContent() {
     const slot = this.shadowRoot!.querySelector('slot[name="content"]') as HTMLSlotElement;
     const slots = slot?.assignedElements();
 
-    this.slotCount = slots.length;
-    this.contentWidth = this.slotCount * this.width + 'px';
-
-    for (var i = 0; i < slots!.length; ++i) {
-      //console.log(slots?.at(i));
-      if (i == this.actual) {
-      } else {
-      }
-    }
+    this.contentWidth = slots.length * this.width + 'px';
 
     if (this.actual == 0) {
       this.hideBackButton = true;

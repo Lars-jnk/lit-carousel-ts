@@ -2,15 +2,18 @@ import { css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { Layout } from './../view';
 
-@customElement('carousel-comp')
-export class CarouselComp extends Layout {
+@customElement('slide-carousel-comp')
+export class SlideCarouselComp extends Layout {
   @state() private actual = 0;
+  @state() private width = 0;
+  @state() private slotCount = 0;
+  @state() private contentWidth = '';
   @state() private hideBackButton = false;
   @state() private hideForwardButton = false;
 
   render() {
     return html`
-      <div class="container">
+      <div id="container" class="container">
         <div class="back-button button">
           <div class="icon" @click=${this.clickBack} ?hidden=${this.hideBackButton}>
             <slot name="back">
@@ -18,7 +21,14 @@ export class CarouselComp extends Layout {
             </slot>
           </div>
         </div>
-        <slot name="content" @slotchange=${this.handleSlotchange}> </slot>
+        <div class="content-container">
+          <div
+            class="content"
+            style="width: ${this.contentWidth}; margin-left: calc(calc(${this.width}px * ${this.actual}) * -1);"
+          >
+            <slot name="content" @slotchange=${this.handleSlotchange}> </slot>
+          </div>
+        </div>
         <div class="forward-button button">
           <div class="icon" @click=${this.clickForward} ?hidden=${this.hideForwardButton}>
             <slot name="forward">
@@ -30,21 +40,41 @@ export class CarouselComp extends Layout {
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', this.handleResize);
+  }
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.handleResize);
+    super.disconnectedCallback();
+  }
+
+  private handleResize = () => {
+    console.log('handleResize');
+    const div = this.shadowRoot?.querySelector('.container');
+    this.width = div!.clientWidth;
+    console.log(this.width);
+  };
+
   handleSlotchange(e: Event) {
     this.refreshContent();
   }
 
   refreshContent() {
+    const div = this.shadowRoot?.querySelector('.container');
+    this.width = div!.clientWidth;
+    console.log(this.width);
+
     const slot = this.shadowRoot!.querySelector('slot[name="content"]') as HTMLSlotElement;
-    //console.log(slot);
     const slots = slot?.assignedElements();
-    //console.log(slots);
+
+    this.slotCount = slots.length;
+    this.contentWidth = this.slotCount * this.width + 'px';
+
     for (var i = 0; i < slots!.length; ++i) {
       //console.log(slots?.at(i));
       if (i == this.actual) {
-        slots?.at(i)?.removeAttribute('hidden');
       } else {
-        slots?.at(i)?.setAttribute('hidden', 'true');
       }
     }
 
@@ -73,12 +103,22 @@ export class CarouselComp extends Layout {
 
   static styles = css`
     :host {
+      width: 100%;
       display: block;
     }
     .container {
+      width: 100%;
       display: flex;
       flex-direction: row;
       position: relative;
+    }
+    .content-container {
+      overflow: hidden;
+    }
+    .content {
+      display: flex;
+      flex-direction: row;
+      transition: margin-left 0.5s;
     }
     .button {
       position: absolute;

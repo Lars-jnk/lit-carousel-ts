@@ -127,6 +127,7 @@ export class SlideCarouselComp extends Layout {
     }
     .icon {
       width: max-content;
+      z-index: 5;
       cursor: pointer;
     }
     .icon-default {

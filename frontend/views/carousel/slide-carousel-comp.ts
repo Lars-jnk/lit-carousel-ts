@@ -99,6 +99,7 @@ export class SlideCarouselComp extends Layout {
     }
     .container {
       width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: row;
       position: relative;

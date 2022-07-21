@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css, CSSResultGroup, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { Layout } from '../view';
 
@@ -58,5 +58,5 @@ export abstract class DialogComp extends Layout {
       background-color: white;
       color: black;
     }
-  `;
+  ` as CSSResultGroup;
 }

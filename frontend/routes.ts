@@ -1,7 +1,9 @@
 import { Route } from '@vaadin/router';
 import './views/carousel/carousel-view';
+import './views/dialog/dialog-view';
 import './views/grocery/grocery-view';
 import './views/main-layout';
+import './views/vaadin-dialog/vaadin-dialog-view';
 
 export type ViewRoute = Route & {
   title?: string;
@@ -28,6 +30,18 @@ export const views: ViewRoute[] = [
     component: 'grocery-view',
     icon: 'la la-list-alt',
     title: 'Grocery',
+  },
+  {
+    path: 'dialog',
+    component: 'dialog-view',
+    icon: 'la la-list-alt',
+    title: 'Dialog',
+  },
+  {
+    path: 'vaadin-dialog',
+    component: 'vaadin-dialog-view',
+    icon: 'la la-list-alt',
+    title: 'vaadin dialog',
   },
 ];
 export const routes: ViewRoute[] = [

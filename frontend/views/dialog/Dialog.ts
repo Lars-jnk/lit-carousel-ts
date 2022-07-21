@@ -23,7 +23,7 @@ export abstract class DialogComp extends Layout {
     this.isOpen = true;
   }
 
-  public close(e: PointerEvent) {
+  public close() {
     this.isOpen = false;
   }
 
@@ -54,7 +54,6 @@ export abstract class DialogComp extends Layout {
     .dialog {
       width: 400px;
       height: 300px;
-      z-index: 101;
       background-color: white;
       color: black;
     }

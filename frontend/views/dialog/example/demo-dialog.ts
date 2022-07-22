@@ -4,7 +4,7 @@ import { DialogComp } from '../dialog';
 
 @customElement('demo-dialog')
 export class DemoDialog extends DialogComp {
-  subTemplate() {
+  dialogTemplate() {
     return html`demo dialog`;
   }
 

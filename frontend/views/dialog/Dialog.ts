@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html } from 'lit';
+import { css, CSSResultGroup, html, TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 import { Layout } from '../view';
 
@@ -9,15 +9,13 @@ export abstract class DialogComp extends Layout {
     return html`
       <div class="backdrop" .hidden=${!this.isOpen} @click="${this.close}">
         <div class="container">
-          <div class="dialog" @click="${this.clickDialog}">dialog ${this.subTemplate()}</div>
+          <div class="dialog" @click="${this.clickDialog}">${this.dialogTemplate()}</div>
         </div>
       </div>
     `;
   }
 
-  subTemplate() {
-    return html``;
-  }
+  abstract dialogTemplate(): TemplateResult;
 
   public open() {
     this.isOpen = true;

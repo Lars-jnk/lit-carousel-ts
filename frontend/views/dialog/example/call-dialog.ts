@@ -10,7 +10,7 @@ export class CallDialog extends DialogComp {
   @query('demo-dialog')
   private demoDialog!: DemoDialog;
 
-  subTemplate() {
+  dialogTemplate() {
     return html`call dialog
       <vaadin-button theme="primary" @click="${this.openDialog}">Open Dialog</vaadin-button>
 

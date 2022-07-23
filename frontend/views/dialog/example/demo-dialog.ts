@@ -1,9 +1,9 @@
 import { css, CSSResultGroup, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { DialogComp } from '../dialog';
+import { Dialog } from '../dialog';
 
 @customElement('demo-dialog')
-export class DemoDialog extends DialogComp {
+export class DemoDialog extends Dialog {
   dialogTemplate() {
     return html`demo dialog`;
   }

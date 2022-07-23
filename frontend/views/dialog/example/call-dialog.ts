@@ -1,12 +1,12 @@
 import '@vaadin/vaadin-button';
 import { html } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { DialogComp } from '../dialog';
+import { Dialog } from '../dialog';
 import './demo-dialog';
 import { DemoDialog } from './demo-dialog';
 
 @customElement('call-dialog')
-export class CallDialog extends DialogComp {
+export class CallDialog extends Dialog {
   @query('demo-dialog')
   private demoDialog!: DemoDialog;
 

@@ -2,7 +2,7 @@ import { css, CSSResultGroup, html, TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 import { Layout } from '../view';
 
-export abstract class DialogComp extends Layout {
+export abstract class Dialog extends Layout {
   @state() private isOpen = false;
 
   render() {
@@ -34,7 +34,7 @@ export abstract class DialogComp extends Layout {
       display: block;
     }
     .backdrop {
-      position: absolute;
+      position: fixed;
       top: 0px;
       right: 0px;
       bottom: 0px;
